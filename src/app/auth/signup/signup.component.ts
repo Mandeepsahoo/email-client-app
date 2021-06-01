@@ -40,7 +40,8 @@ export class SignupComponent implements OnInit {
   constructor(
     private matchPassword: MatchPassword,
     private uniqueUsername: UniqueUsername,
-    private authservice: AuthService
+    private authservice: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit() {}
@@ -54,7 +55,9 @@ export class SignupComponent implements OnInit {
       return;
     } else {
       this.authservice.signup(credentials).subscribe(
-        (response) => {},
+        (response) => {
+          this.router.navigateByUrl('/inbox');
+        },
         (error) => {
           if (!error.status) {
             this.authForm.setErrors({ noConnection: true });
